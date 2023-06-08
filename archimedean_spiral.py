@@ -3,17 +3,28 @@ __author__ = 'Arnold C. Toppo'
 import numpy as np
 import scipy.integrate as integrate
 
-pi = np.pi
 
-def spiral_length(spiral_id, spiral_od, sheet_thickness, gap):
-    distance = gap + sheet_thickness
-    theta_init = pi * spiral_id / distance
-    theta_fin = pi * spiral_od / distance
+class Spiral:
+    def __init__(self, inner_diam, outer_diam, sheet_width, sheet_thickness, sheet_gap):
+        self.inner_diam = inner_diam
+        self.outer_diam = outer_diam
+        self.sheet_width = sheet_width
+        self.sheet_thickness = sheet_thickness
+        self.sheet_gap = sheet_gap
+        self.distance = self.sheet_gap + self.sheet_thickness
+        self.theta_init = np.pi * self.inner_diam / self.distance
+        self.theta_fin = np.pi * self.outer_diam / self.distance
 
-    length_func = lambda phi: distance * (0.5 / pi) * (1 + phi ** 2) ** 0.5
-    length = integrate.quad(length_func, theta_init, theta_fin)[0]
-    n_turns = (theta_fin - theta_init) / (2 * pi)
+    def spiral_length(self):
+        def length_func(phi):
+            return self.distance * (0.5 / np.pi) * (1 + phi ** 2) ** 0.5
+        self.length = integrate.quad(length_func, self.theta_init, self.theta_fin)[0]
+        return self.length
 
-    outputs = length, n_turns
-    print(outputs)
+    def spiral_volume(self):
+        self.spiral_volume = self.sheet_thickness * self.spiral_length() * self.sheet_width
+        return self.spiral_volume
 
+    def spiral_turns(self):
+        n_turns = (self.theta_fin - self.theta_init) / (2 * np.pi)
+        return n_turns
