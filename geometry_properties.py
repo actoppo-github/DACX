@@ -4,7 +4,7 @@ import numpy as np
 import scipy.integrate as integrate
 
 
-class SpiralGeom:
+class SpiralSheetGeom:
     def __init__(self, inner_diam, outer_diam, sheet_width, sheet_thickness, sheet_gap):
         self.inner_diam = inner_diam
         self.outer_diam = outer_diam
@@ -18,6 +18,7 @@ class SpiralGeom:
     def spiral_length(self):
         def length_func(phi):
             return self.distance * (0.5 / np.pi) * (1 + phi ** 2) ** 0.5
+
         self.length = integrate.quad(length_func, self.theta_init, self.theta_fin)[0]
         return self.length
 
@@ -29,10 +30,20 @@ class SpiralGeom:
         n_turns = (self.theta_fin - self.theta_init) / (2 * np.pi)
         return n_turns
 
-class CorrugatedGeom:
+
+class SpiralCorrugationGeom:
     def __init__(self, sheet_width, sheet_thickness, sheet_gap):
         self.sheet_width = sheet_width
         self.sheet_thickness = sheet_thickness
+
+
+class StackedSheetsGeom:
+    def __init__(self, sheet_width, sheet_length, sheet_height, sheet_thickness, sheet_gap):
+        self.sheet_width = sheet_width
+        self.sheet_length = sheet_length
+        self.sheet_height = sheet_height
+        self.sheet_thickness = sheet_thickness
+        self.sheet_gap = sheet_gap
 
 
 print('geometryproperties')
