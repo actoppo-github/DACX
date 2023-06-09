@@ -1,4 +1,10 @@
+__author__ = 'Arnold C. Toppo'
+
 import math
+
+
+# class ShapeVolume:
+
 
 class RegularPolygon:
     def __init__(self, num_sides, side_length, length):
@@ -17,6 +23,7 @@ class RegularPolygon:
         area = (self.side_length ** 2 * self.num_sides) / (4 * math.tan(math.pi / self.num_sides))
 
         return area
+
     def volume(self):
         if self.length <= 0:
             return "Invalid length. The height must be greater than zero."
@@ -28,6 +35,7 @@ class RegularPolygon:
         volume = area_base * self.length
 
         return volume
+
 
 class Rectangle:
     def __init__(self, height, width, length):
@@ -55,6 +63,8 @@ class Rectangle:
         volume = area_base * self.length
 
         return volume
+
+
 class Circle:
     def __init__(self, radius, length):
         self.radius = radius
