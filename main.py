@@ -5,8 +5,16 @@ from dash import Dash, html, dcc
 app = Dash(__name__)
 # Geometry Options
 app.layout = html.Div([
-    dcc.Dropdown(['Monolith', 'Spiral Sheet', 'Spiral Corrugation', 'Stacked Sheets', 'Stacked Corrugations',
-                  'Folded Sheets', 'Folded Corrugations'], 'Monolith')
+    dcc.Dropdown([
+        'Monolith',
+        'Spiral Sheet',
+        'Spiral Corrugation',
+        'Stacked Sheets',
+        'Stacked Corrugations',
+        'Folded Sheets',
+        'Folded Corrugations'
+    ],
+        'Monolith')
 ])
 
 if __name__ == '__main__':

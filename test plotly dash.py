@@ -1,73 +1,28 @@
-import dash
-from dash import dcc
-from dash import html
-from dash.dependencies import Input, Output
+def void_area(monolith_width, monolith_height, channel_width, channel_height, wall_thickness):
+    # Calculate the number of channels in the monolith
+    num_channels_horizontal = int(monolith_width / (channel_width + wall_thickness))
+    num_channels_vertical = int(monolith_height / (channel_height + wall_thickness))
+    total_channels = num_channels_horizontal * num_channels_vertical
 
-# Create a Dash app
-app = dash.Dash(__name__)
+    # Calculate the area of a single cell including the wall thickness
+    cell_area = (channel_width + wall_thickness) * (channel_height + wall_thickness)
 
+    # Calculate the total frontal solid area
+    void_area = total_channels * cell_area
 
-# Define a class for the app layout
-class MyAppLayout:
-    def __init__(self):
-        self.layout = html.Div(
-            children=[
-                html.H1("Shape Calculator"),
-                html.Div(
-                    children=[
-                        html.Label("Number of Sides:"),
-                        dcc.Input(
-                            id="num-sides-input",
-                            type="number",
-                            value=3,
-                        ),
-                    ],
-                ),
-                html.Div(
-                    children=[
-                        html.Label("Side Length:"),
-                        dcc.Input(
-                            id="side-length-input",
-                            type="number",
-                            value=1,
-                        ),
-                    ],
-                ),
-                html.Div(
-                    children=[
-                        html.Button("Calculate", id="calculate-button"),
-                    ],
-                ),
-                html.Div(id="output-div"),
-            ],
-        )
+    return void_area
 
+def solid_area():
+    solid_area = total_area - void_area()
+    return solid_area
 
-# Define a class for the app callbacks
-class MyAppCallbacks:
-    @staticmethod
-    @app.callback(
-        Output("output-div", "children"),
-        [Input("calculate-button", "n_clicks")],
-        [State("num-sides-input", "value"), State("side-length-input", "value")],
-    )
-    def calculate_area(n_clicks, num_sides, side_length):
-        if n_clicks is None:
-            return ""
+# Example usage
+monolith_width = 100  # Width of the monolith in millimeters
+monolith_height = 80  # Height of the monolith in millimeters
+channel_width = 10  # Width of the channel in millimeters
+channel_height = 8  # Height of the channel in millimeters
+wall_thickness = 2.1  # Wall thickness in millimeters
+cell_density = 10  # Number of cells per square millimeter
 
-        # Perform the area calculation based on the inputs
-        # You can replace this with your own calculation logic
-        area = 0.5 * num_sides * side_length ** 2
-
-        # Return the output message
-        return f"The area is: {area}"
-
-
-# Create instances of the layout and callbacks classes
-layout = MyAppLayout().layout
-callbacks = MyAppCallbacks()
-
-# Run the app
-if __name__ == "__main__":
-    app.layout = layout
-    app.run_server(debug=True)
+total_area = calculate_total_frontal_solid_area(monolith_width, monolith_height, channel_width, channel_height, wall_thickness)
+print(f"The total frontal solid area of the monolith is {total_area} square millimeters.")
