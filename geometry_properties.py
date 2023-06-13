@@ -36,12 +36,13 @@ class MonolithGeom:
         return solid_area
 
     def void_volume(self):
-        void_volume = self.void_area()*self.monolith_length
+        void_volume = self.void_area() * self.monolith_length
         return void_volume
 
     def solid_volume(self):
-        solid_volume = self.solid_area()*self.monolith_length
+        solid_volume = self.solid_area() * self.monolith_length
         return solid_volume
+
 
 class SpiralSheetGeom:
     def __init__(self, inner_diam, outer_diam, sheet_width, sheet_thickness, sheet_gap):
