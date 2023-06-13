@@ -3,14 +3,10 @@ __author__ = 'Arnold C. Toppo'
 import math
 
 
-# class ShapeVolume:
-
-
-class RegularPolygon:
-    def __init__(self, num_sides, side_length, length):
+class RegularPolygonBase:
+    def __init__(self, num_sides, side_length):
         self.num_sides = num_sides
         self.side_length = side_length
-        self.length = length
 
     def area(self):
         if self.num_sides < 3:
@@ -21,27 +17,13 @@ class RegularPolygon:
 
         # Calculate the area of the regular polygon using the formula: area = (s^2 * n) / (4 * tan(pi/n))
         area = (self.side_length ** 2 * self.num_sides) / (4 * math.tan(math.pi / self.num_sides))
-
         return area
 
-    def volume(self):
-        if self.length <= 0:
-            return "Invalid length. The height must be greater than zero."
 
-        # Calculate the area of the base (the regular polygon)
-        area_base = self.area()
-
-        # Calculate the volume using the formula: volume = area_base * height
-        volume = area_base * self.length
-
-        return volume
-
-
-class Rectangle:
-    def __init__(self, height, width, length):
+class RectangleBase:
+    def __init__(self, height, width):
         self.height = height
         self.width = width
-        self.length = length
 
     def area(self):
         if self.height <= 0 or self.width <= 0:
@@ -52,23 +34,10 @@ class Rectangle:
 
         return area
 
-    def volume(self):
-        if self.length <= 0:
-            return "Invalid length. The height must be greater than zero."
 
-        # Calculate the area of the base (the regular polygon)
-        area_base = self.area()
-
-        # Calculate the volume using the formula: volume = area_base * height
-        volume = area_base * self.length
-
-        return volume
-
-
-class Circle:
-    def __init__(self, radius, length):
+class CircleBase:
+    def __init__(self, radius):
         self.radius = radius
-        self.length = length
 
     def area(self):
         if self.radius <= 0:
@@ -79,14 +48,51 @@ class Circle:
 
         return area
 
+
+class VolumeMixin:
     def volume(self):
         if self.length <= 0:
-            return "Invalid length. The height must be greater than zero."
+            print("Invalid length. The height must be greater than zero.")
 
         # Calculate the area of the base (the regular polygon)
         area_base = self.area()
 
         # Calculate the volume using the formula: volume = area_base * height
         volume = area_base * self.length
-
         return volume
+
+
+class RegularPolygonPrism(VolumeMixin, RegularPolygonBase):
+    def __init__(self, num_sides, side_length, length):
+        super().__init__(num_sides, side_length)
+        self.length = length
+
+    def area(self):
+        return super().area()
+
+
+class RectangularPrism(VolumeMixin, RectangleBase):
+    def __init__(self, height, width, length):
+        super().__init__(height, width)
+        self.length = length
+
+    def area(self):
+        return super().area()
+
+
+class Cylinder(VolumeMixin, CircleBase):
+    def __init__(self, radius, length):
+        super().__init__(radius)
+        self.length = length
+
+    def area(self):
+        return super().area()
+
+
+a = RegularPolygonPrism(3, 3, 7)
+print(a.area())
+print(a.volume())
+
+b = RectangularPrism(3, 3, 2)
+print(b.area())
+print(b.volume())
