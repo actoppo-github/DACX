@@ -1,46 +1,16 @@
 __author__ = 'Arnold C. Toppo'
 
-# from dash import Dash, html, dcc
-#
-# app = Dash(__name__)
-# # Geometry Options
-# app.layout = html.Div([
-#     dcc.Dropdown([
-#         'Monolith',
-#         'Spiral Sheet',
-#         'Spiral Corrugation',
-#         'Stacked Sheets',
-#         'Stacked Corrugations',
-#         'Folded Sheets',
-#         'Folded Corrugations'
-#     ],
-#         'Monolith')
-# ])
-#
-# if __name__ == '__main__':
-#     app.run_server(debug=True)
+from geometry_properties import Monolith, MonolithDim, StackedSheets, FoldedSheets, SpiralSheets
+from material_properties import SubstrateMaterialProperties, SorbentMaterialProperties
 
 
-import geometry_properties
-import material_properties
-
-geometry = 'Corrugated Monolith'
-
-if geometry == 'Spiral':
-    variable = SpiralGeom(inner_diam, outer_diam, sheet_width, sheet_thickness, sheet_gap)
-    geometry_properties = geometry_properties.SpiralGeom(1,10,5,0.1,0.1)
-    volume = a.spiral_volume()
-elif geometry == 'Spiral Corrugation':
-    # volume ==
-elif geometry == 'Stacked Sheets':
-# volume ==
-elif geometry == 'Stacked Corrugation':
-# volume ==
-elif geometry == 'Folded Sheets':
-volume == a.material_volume()
-elif geometry == 'Folded Corrugation':
-# volume ==
-elif geometry == 'Monolith':
-# volume ==
-else:
-    print('Invalid geometry.')
+smp1 = SubstrateMaterialProperties(27.85, 2, 3, 1)
+md1 = MonolithDim(monolith_width=6, monolith_height=6, channel_width=0.95/25.4,
+                  channel_height=0.95/25.4, wall_thickness=3/1000)
+c = Monolith(materialproperties=smp1, geometry=md1, monolith_length=8.56)
+print(c.geometry.total_channels())
+print(c.geometry.void_area())
+print(c.solid_volume())
+print(c.geometry.csarea())
+print(c.mass())
+print(c.geometry.total_channels()/c.geometry.total_area())

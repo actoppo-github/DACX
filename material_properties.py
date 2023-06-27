@@ -1,7 +1,17 @@
 __author__ = 'Arnold C. Toppo'
+
+from dataclasses import dataclass
+
+@dataclass
 class SubstrateMaterialProperties:
-    def __init__(self):
-        self.density =
-        self.voidage =
-        self.thermal_conductivity =
-        self.resistivity =
+    density: float = 0
+    voidage: float = 0
+    thermal_conductivity: float = 0
+    resistivity: float = 0
+
+@dataclass
+class SorbentMaterialProperties:
+    density: float = 0
+    voidage: float = 0
+    thermal_conductivity: float = 0
+    resistivity: float = 0

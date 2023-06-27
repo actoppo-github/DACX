@@ -1,0 +1,88 @@
+abstract class Geometry()
+    def __init__()
+
+    def material_length()
+        return 0
+
+    def csarea()
+        return 0
+
+    def volume()
+        return self.mateiral_length * self.csarea()
+
+
+abstract class Material
+    def __init__(self, substratematerialproperties, geometry)
+        self.properties = substratematerialproperties
+        self.geometry = geometry
+
+    def mass()
+
+
+
+class SheetGeometry(Geometry)
+    def __init__(sheet_width, sheet_thickness)
+        self.sheet_width =
+        self.sheet_thick =
+
+    def csarea()
+        return self.sheet_thickness * self.sheet_width
+
+class MonolithGeometry(Geometry)
+
+class MonolithMaterial(Material)
+    def __init__(self, substragematerialproperties, monolithGeometry)
+        super(self, substratematerialproperties, monolithGeometry)
+
+class SheetMaterial(Material)
+
+    def __init__(properties, sheet_width, sheet_thickness, sheet_gap)
+        super(self, properties, SheetGeometry(sheet_width, sheet_thickness))
+        this.sheet_gap = sheet_gap
+
+    def material_length()
+        return 0
+
+class StackSheetMaterial(SheetMaterial)
+    def __init__(self, properties, sheet_length, stack_height, sheet_width, sheet_thickness, sheet_gap)
+        super(properties, sheet_width, sheet_thickness, sheet_gap)
+        self.sheet_length = sheet_length
+        self.stack_height = stack_height
+
+    def n_sheets()
+        n_sheets = int(self.stack_height / (self.sheet_thickness + (self.sheet_thickness + self.sheet_gap)))
+        return n_sheets
+
+
+    def material_length()
+        return self.n_sheets() * self.sheet_length
+
+    def mass()
+        return self.material_length() * self.properties.density
+
+class AMonolith
+
+    def mass()
+
+
+for(int i = 0; i < 10; i++)
+    material_type = f(i)
+    switch material
+        case 0:
+            material[i] = StackSheetMaterial(properties, sheet_length, material_stackHeight, sheet_width, sheet_thickness, sheet_gap)
+            massArray[i] = material[i].mass()
+        case 1:
+            material[i] = SpiralSheetMaterial()
+            massArray[i] = material[i].mass()
+
+    material[i] = StackSheetMaterial(properties, sheet_length, material_stackHeight, sheet_width, sheet_thickness, sheet_gap)
+    massArray[i] = material[i].mass()
+
+material1 = StackSheetMaterial(..)
+material2 = AMonolith(...)
+
+mass1 = calculateTotalMass(material1)
+mass2 = calculateTotalMass(material2)
+
+function calculateTotalMass(Material)
+    return material.mass()
