@@ -1,7 +1,7 @@
 __author__ = 'Arnold C. Toppo'
 
 from abc import ABC, abstractmethod
-from material_properties import SubstrateMaterialProperties, SorbentMaterialProperties
+from material_properties import SubstrateMaterialProperties
 # from energy import
 from numpy import pi
 from dataclasses import dataclass
@@ -14,12 +14,10 @@ class GeneralGeometry(ABC):
     # geometries have a volume which is the cross-sectional area multiplied by length/depth.
     # @abstractmethod
     def material_length(self):
-        print("Material length is missing.")
-
+        pass
     # @abstractmethod
     def csarea(self):
-        print("Cross-Sectional Area is missing.")
-
+        pass
     def volume(self):
         return self.material_length() * self.csarea()
 

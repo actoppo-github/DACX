@@ -10,7 +10,7 @@ class SubstrateMaterialProperties:
     resistivity: float = 0
 
 @dataclass
-class SorbentMaterialProperties:
+class WashcoatMaterialProperties:
     density: float = 0
     voidage: float = 0
     thermal_conductivity: float = 0
